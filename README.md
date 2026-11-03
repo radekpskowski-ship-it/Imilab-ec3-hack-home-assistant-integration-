@@ -10,6 +10,34 @@ Local control and video for the **Imilab EC3** outdoor camera (CMSXJ25A, miio `c
 
 > ⚠️ You need to open the camera and solder to three UART pads **once**. Back up the whole flash first ([docs/backup-restore.md](docs/backup-restore.md)). Everything here is at your own risk.
 
+## Features
+
+| Area | What you get |
+|---|---|
+| **No cloud needed** | Everything below works locally. Mi Home keeps working in parallel, but you can block the cloud entirely. |
+| **Video** | RTSP / WebRTC / HLS through go2rtc: main stream 2304×1296 and sub stream 640×360 (H.265, ~20 fps), optional H.264 sub stream transcoded by go2rtc; JPEG snapshots; `camera` entity in HA |
+| **PTZ** | Pan left/right, up to 6 position presets (save / go to / delete, also as HA services), the camera's built-in **motion tracking** as a switch |
+| **Image** | Camera on/off, night mode (auto/off/on), colour at night, WDR, flip image, timestamp watermark, status LED |
+| **Motion** | Motion sensor over MQTT (from the camera's own detector), detection on/off, monitoring off / all day / schedule (from–until), alarm interval, sensitivity, siren on motion, Mi Home push on/off |
+| **Recording** | SD card: continuous / on motion / off; upload to a NAS over SMB with retention — configured in the HA integration options, with a connection test and status sensor |
+| **Other controls** | Siren, restart, sending logs to Xiaomi on/off |
+| **Diagnostics** | Wi-Fi signal and quality, uptime, CPU, RAM, load, SD card state/size/free space, day/night mode, scene brightness, connection and stream-server sensors |
+| **Access** | Root SSH with your keys (dropbear); HA gets its own key restricted to a single command |
+| **Robustness** | OTA updates blocked by default; Wi-Fi from your own config with fallback networks; the hack and Wi-Fi survive a factory reset; the miio token, which changes on every boot, is refreshed automatically |
+| **Safe to undo** | Kernel and ROOTFS are never modified; one file disables the hack; a full flash backup restores the stock state |
+
+## Limitations
+
+- Opening the camera and connecting UART is needed **once**, for the backup and the first install.
+- The tested unit only **pans** — tilt is not available.
+- **No AI detection** (person/pet/crying) — the stock firmware 4.0.4 only has pixel motion detection.
+- **NAS upload needs SMB1** (`server min protocol = NT1`) — the camera cannot talk SMB2/3.
+- H.265 playback depends on the client: Safari, the HA Android app and Chrome/Edge with hardware HEVC work, Firefox does not — use the H.264 sub stream there.
+- The main stream needs a decent Wi-Fi signal (roughly −70 dBm or better); with a weak signal use the sub stream.
+- Motion tracking is volatile — it is off again after a camera reboot (re-enable it with an automation).
+- MIoT (`get_properties`) does not answer locally — the integration uses the legacy miio commands.
+- The camera has ~10 MB of free RAM, so add-ons must stay small.
+
 ## How it works
 
 ```
