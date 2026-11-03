@@ -1,0 +1,18 @@
+save_preset:
+  fields:
+    location:
+      required: true
+      selector:
+        number: { min: 1, max: 6, mode: box }
+goto_preset:
+  fields:
+    location:
+      required: true
+      selector:
+        number: { min: 1, max: 6, mode: box }
+delete_preset:
+  fields:
+    location:
+      required: true
+      selector:
+        number: { min: 1, max: 6, mode: box }

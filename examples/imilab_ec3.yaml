@@ -1,0 +1,7 @@
+# Home Assistant package (e.g. /config/packages/imilab_ec3.yaml). You can also add the integration in the UI.
+imilab_ec3:
+  host: 192.168.1.100
+  stream_url: rtsp://192.168.1.10:8554/imilab_ec3_sub_h264
+  snapshot_url: http://192.168.1.10:1984/api/frame.jpeg?src=imilab_ec3_sub_h264
+  snapshot_username: admin
+  snapshot_password: !secret imilab_go2rtc_password

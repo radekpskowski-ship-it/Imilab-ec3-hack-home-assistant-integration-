@@ -1,0 +1,9 @@
+# go2rtc — the camera exposes raw HEVC over TCP (shbf2tcp); go2rtc turns it into RTSP/WebRTC.
+# Replace 192.168.1.100 with the camera address.
+streams:
+  imilab_ec3:          # 2304x1296 HEVC (needs a good Wi-Fi link, ~0.5–1 Mbit/s)
+    - "exec:ffmpeg -hide_banner -v error -use_wallclock_as_timestamps 1 -f hevc -i tcp://192.168.1.100:8001 -c copy -rtsp_transport tcp -f rtsp {output}"
+  imilab_ec3_sub:      # 640x360 HEVC
+    - "exec:ffmpeg -hide_banner -v error -use_wallclock_as_timestamps 1 -f hevc -i tcp://192.168.1.100:8002 -c copy -rtsp_transport tcp -f rtsp {output}"
+  imilab_ec3_sub_h264: # 640x360 transcoded to H.264 — plays in every browser
+    - "ffmpeg:imilab_ec3_sub#video=h264"

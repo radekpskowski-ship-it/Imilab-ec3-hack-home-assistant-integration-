@@ -1,0 +1,2 @@
+# Bind-mounted over /etc/shadow by boot.sh. Generate the hash with: openssl passwd -1 'yourpassword'
+root:$1$CHANGEME$xxxxxxxxxxxxxxxxxxxxxx:19000:0:99999:7:::

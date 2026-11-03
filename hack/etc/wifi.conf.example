@@ -1,0 +1,11 @@
+# Camera Wi-Fi (overrides the network stored in nvram by wifi_start.sh). Keep the file mode 600.
+# While this file exists the camera always starts in station mode, also after a factory reset.
+# Remove it to fall back to the network paired in Mi Home.
+ssid=MyNetwork
+passwd=secret
+key_mgmt=WPA
+# Optional fallback networks, tried with lower priority (put values with spaces in single quotes):
+#ssid2='My Other Network'
+#passwd2=secret2
+#ssid3=OpenCafe
+#passwd3=

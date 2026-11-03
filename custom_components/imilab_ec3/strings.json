@@ -1,0 +1,293 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Imilab EC3",
+        "data": {
+          "host": "Camera IP address",
+          "token": "miio token (empty = fetch over SSH / /config/imilab/token)",
+          "stream_url": "RTSP stream (go2rtc)",
+          "snapshot_url": "Snapshot URL (go2rtc API)",
+          "snapshot_username": "go2rtc API user",
+          "snapshot_password": "go2rtc API password"
+        }
+      }
+    },
+    "abort": {
+      "cannot_connect": "The camera did not answer miio",
+      "already_configured": "Camera already configured (address updated)"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Record to NAS (SMB)",
+        "description": "The camera only speaks **SMB1** (NT LM 0.12) — the server needs `server min protocol = NT1`. Recordings go to `<share>\\\\xiaomi_camera_videos\\\\<MAC>`.",
+        "data": {
+          "smb_addr": "SMB server IP address",
+          "smb_name": "Server NetBIOS name",
+          "smb_dir": "Share (e.g. cameras or cameras\\\\imilab)",
+          "smb_group": "Workgroup / domain",
+          "smb_user": "User",
+          "smb_pass": "Password",
+          "smb_sync_interval": "Sync",
+          "smb_retention": "Keep recordings",
+          "smb_enable": "Enable recording to NAS"
+        }
+      }
+    },
+    "error": {
+      "smb_failed": "The camera could not connect to the share: {error}",
+      "smb_no_server": "Enter the SMB server address"
+    }
+  },
+  "selector": {
+    "sync_interval": {
+      "options": {
+        "300": "Every 5 min",
+        "3600": "Hourly",
+        "86400": "Daily"
+      }
+    },
+    "retention": {
+      "options": {
+        "604800": "1 week",
+        "2592000": "1 month",
+        "7776000": "3 months",
+        "15552000": "6 months",
+        "31104000": "1 year"
+      }
+    }
+  },
+  "services": {
+    "save_preset": {
+      "name": "Save PTZ preset",
+      "description": "Save the current position into a preset slot.",
+      "fields": {
+        "location": {
+          "name": "Slot",
+          "description": "1–6"
+        }
+      }
+    },
+    "goto_preset": {
+      "name": "Go to PTZ preset",
+      "description": "Move the camera to a saved preset.",
+      "fields": {
+        "location": {
+          "name": "Slot",
+          "description": "1–6"
+        }
+      }
+    },
+    "delete_preset": {
+      "name": "Delete PTZ preset",
+      "description": "Delete a saved preset.",
+      "fields": {
+        "location": {
+          "name": "Slot",
+          "description": "1–6"
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "motion": {
+        "name": "Motion"
+      },
+      "connected": {
+        "name": "Connection"
+      },
+      "shbf2tcp": {
+        "name": "Stream server (shbf2tcp)"
+      }
+    },
+    "sensor": {
+      "rssi": {
+        "name": "Wi-Fi signal"
+      },
+      "uptime": {
+        "name": "Uptime"
+      },
+      "nas_status": {
+        "name": "NAS status",
+        "state": {
+          "not_configured": "Not configured",
+          "off": "Off",
+          "on": "On",
+          "error": "Error"
+        }
+      },
+      "smb_test_result": {
+        "name": "SMB test",
+        "state": {
+          "not_tested": "Not tested",
+          "ok": "OK",
+          "error": "Error",
+          "not_configured": "Not configured"
+        }
+      },
+      "presets": {
+        "name": "PTZ presets"
+      },
+      "cpu": {
+        "name": "CPU usage"
+      },
+      "mem_used": {
+        "name": "RAM usage"
+      },
+      "mem_free": {
+        "name": "Free RAM"
+      },
+      "load": {
+        "name": "Load average"
+      },
+      "sd_free": {
+        "name": "SD card free"
+      },
+      "sd_total": {
+        "name": "SD card size"
+      },
+      "sd_used": {
+        "name": "SD card used"
+      },
+      "sd_state": {
+        "name": "SD card",
+        "state": {
+          "mounted": "Mounted",
+          "missing": "Missing"
+        }
+      },
+      "wifi_quality": {
+        "name": "Wi-Fi quality"
+      },
+      "daynight": {
+        "name": "Day/night mode",
+        "state": {
+          "day": "Day",
+          "night": "Night"
+        }
+      },
+      "ev": {
+        "name": "Scene brightness (EV)"
+      }
+    },
+    "switch": {
+      "power": {
+        "name": "Camera"
+      },
+      "light": {
+        "name": "Status LED"
+      },
+      "wdr": {
+        "name": "WDR"
+      },
+      "full_color": {
+        "name": "Color at night"
+      },
+      "watermark": {
+        "name": "Timestamp watermark"
+      },
+      "flip": {
+        "name": "Flip image"
+      },
+      "motion_detection_enable": {
+        "name": "Motion detection"
+      },
+      "improve_program": {
+        "name": "Send logs to Xiaomi"
+      },
+      "nas": {
+        "name": "Record to NAS"
+      },
+      "alarm_notify": {
+        "name": "Push notifications (Mi Home)"
+      },
+      "focus_area_alarm": {
+        "name": "Siren on motion"
+      },
+      "track": {
+        "name": "Motion tracking"
+      }
+    },
+    "select": {
+      "night_mode": {
+        "name": "Night mode",
+        "state": {
+          "auto": "Auto",
+          "off": "Off",
+          "on": "On"
+        }
+      },
+      "record_mode": {
+        "name": "SD recording",
+        "state": {
+          "continuous": "Continuous",
+          "motion": "On motion",
+          "disabled": "Disabled"
+        }
+      },
+      "sensitivity": {
+        "name": "Motion sensitivity",
+        "state": {
+          "high": "High",
+          "low": "Low"
+        }
+      },
+      "alarm_mode": {
+        "name": "Monitoring",
+        "state": {
+          "off": "Off",
+          "all_day": "All day",
+          "schedule": "Schedule"
+        }
+      },
+      "preset": {
+        "name": "PTZ preset",
+        "state": {
+          "none": "None",
+          "1": "Preset 1",
+          "2": "Preset 2",
+          "3": "Preset 3",
+          "4": "Preset 4",
+          "5": "Preset 5",
+          "6": "Preset 6"
+        }
+      }
+    },
+    "number": {
+      "alarm_interval": {
+        "name": "Motion alarm interval"
+      }
+    },
+    "time": {
+      "alarm_start": {
+        "name": "Monitoring from"
+      },
+      "alarm_end": {
+        "name": "Monitoring until"
+      }
+    },
+    "button": {
+      "pan_left": {
+        "name": "Pan left"
+      },
+      "pan_right": {
+        "name": "Pan right"
+      },
+      "alarm": {
+        "name": "Siren"
+      },
+      "restart": {
+        "name": "Restart"
+      },
+      "smb_test": {
+        "name": "Test SMB connection"
+      },
+      "save_preset": {
+        "name": "Save position as preset"
+      }
+    }
+  }
+}

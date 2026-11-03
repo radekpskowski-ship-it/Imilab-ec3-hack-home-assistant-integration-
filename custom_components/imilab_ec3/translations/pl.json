@@ -1,0 +1,293 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Imilab EC3",
+        "data": {
+          "host": "Adres IP kamery",
+          "token": "Token miio (puste = pobierz przez SSH / /config/imilab/token)",
+          "stream_url": "RTSP (go2rtc)",
+          "snapshot_url": "URL snapshotu (go2rtc API)",
+          "snapshot_username": "Login go2rtc API",
+          "snapshot_password": "Hasło go2rtc API"
+        }
+      }
+    },
+    "abort": {
+      "cannot_connect": "Brak odpowiedzi miio z kamery",
+      "already_configured": "Kamera już skonfigurowana (adres zaktualizowany)"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Zapis na NAS (SMB)",
+        "description": "Kamera obsługuje wyłącznie **SMB1** (NT LM 0.12) — serwer musi mieć `server min protocol = NT1`. Nagrania trafiają do `<udział>\\\\xiaomi_camera_videos\\\\<MAC>`.",
+        "data": {
+          "smb_addr": "Adres IP serwera SMB",
+          "smb_name": "Nazwa NetBIOS serwera",
+          "smb_dir": "Udział (np. kamery albo kamery\\\\imilab)",
+          "smb_group": "Grupa robocza / domena",
+          "smb_user": "Użytkownik",
+          "smb_pass": "Hasło",
+          "smb_sync_interval": "Synchronizacja",
+          "smb_retention": "Przechowywanie nagrań",
+          "smb_enable": "Włącz zapis na NAS"
+        }
+      }
+    },
+    "error": {
+      "smb_failed": "Kamera nie połączyła się z udziałem: {error}",
+      "smb_no_server": "Podaj adres serwera SMB"
+    }
+  },
+  "selector": {
+    "sync_interval": {
+      "options": {
+        "300": "Co 5 min",
+        "3600": "Co godzinę",
+        "86400": "Raz na dobę"
+      }
+    },
+    "retention": {
+      "options": {
+        "604800": "Tydzień",
+        "2592000": "Miesiąc",
+        "7776000": "Kwartał",
+        "15552000": "Pół roku",
+        "31104000": "Rok"
+      }
+    }
+  },
+  "services": {
+    "save_preset": {
+      "name": "Zapisz preset PTZ",
+      "description": "Zapisuje bieżącą pozycję w slocie.",
+      "fields": {
+        "location": {
+          "name": "Slot",
+          "description": "1–6"
+        }
+      }
+    },
+    "goto_preset": {
+      "name": "Przejdź do presetu PTZ",
+      "description": "Obraca kamerę do zapisanego presetu.",
+      "fields": {
+        "location": {
+          "name": "Slot",
+          "description": "1–6"
+        }
+      }
+    },
+    "delete_preset": {
+      "name": "Usuń preset PTZ",
+      "description": "Usuwa zapisany preset.",
+      "fields": {
+        "location": {
+          "name": "Slot",
+          "description": "1–6"
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "motion": {
+        "name": "Ruch"
+      },
+      "connected": {
+        "name": "Połączenie"
+      },
+      "shbf2tcp": {
+        "name": "Serwer strumienia (shbf2tcp)"
+      }
+    },
+    "sensor": {
+      "rssi": {
+        "name": "Sygnał Wi-Fi"
+      },
+      "uptime": {
+        "name": "Czas pracy"
+      },
+      "nas_status": {
+        "name": "Status NAS",
+        "state": {
+          "not_configured": "Nieskonfigurowany",
+          "off": "Wyłączony",
+          "on": "Włączony",
+          "error": "Błąd"
+        }
+      },
+      "smb_test_result": {
+        "name": "Test SMB",
+        "state": {
+          "not_tested": "Nie sprawdzano",
+          "ok": "OK",
+          "error": "Błąd",
+          "not_configured": "Brak konfiguracji"
+        }
+      },
+      "presets": {
+        "name": "Presety PTZ"
+      },
+      "cpu": {
+        "name": "Użycie CPU"
+      },
+      "mem_used": {
+        "name": "Użycie RAM"
+      },
+      "mem_free": {
+        "name": "Wolny RAM"
+      },
+      "load": {
+        "name": "Obciążenie (load)"
+      },
+      "sd_free": {
+        "name": "Karta SD wolne"
+      },
+      "sd_total": {
+        "name": "Karta SD pojemność"
+      },
+      "sd_used": {
+        "name": "Karta SD zajęte"
+      },
+      "sd_state": {
+        "name": "Karta SD",
+        "state": {
+          "mounted": "Zamontowana",
+          "missing": "Brak"
+        }
+      },
+      "wifi_quality": {
+        "name": "Jakość Wi-Fi"
+      },
+      "daynight": {
+        "name": "Tryb dzień/noc",
+        "state": {
+          "day": "Dzień",
+          "night": "Noc"
+        }
+      },
+      "ev": {
+        "name": "Jasność sceny (EV)"
+      }
+    },
+    "switch": {
+      "power": {
+        "name": "Kamera"
+      },
+      "light": {
+        "name": "Dioda statusu"
+      },
+      "wdr": {
+        "name": "WDR"
+      },
+      "full_color": {
+        "name": "Kolor w nocy"
+      },
+      "watermark": {
+        "name": "Znak wodny"
+      },
+      "flip": {
+        "name": "Obrót obrazu"
+      },
+      "motion_detection_enable": {
+        "name": "Detekcja ruchu"
+      },
+      "improve_program": {
+        "name": "Wysyłanie logów do Xiaomi"
+      },
+      "nas": {
+        "name": "Zapis na NAS"
+      },
+      "alarm_notify": {
+        "name": "Powiadomienia push (Mi Home)"
+      },
+      "focus_area_alarm": {
+        "name": "Syrena przy ruchu"
+      },
+      "track": {
+        "name": "Śledzenie ruchu"
+      }
+    },
+    "select": {
+      "night_mode": {
+        "name": "Tryb nocny",
+        "state": {
+          "auto": "Auto",
+          "off": "Wyłączony",
+          "on": "Włączony"
+        }
+      },
+      "record_mode": {
+        "name": "Nagrywanie na SD",
+        "state": {
+          "continuous": "Ciągłe",
+          "motion": "Przy ruchu",
+          "disabled": "Wyłączone"
+        }
+      },
+      "sensitivity": {
+        "name": "Czułość ruchu",
+        "state": {
+          "high": "Wysoka",
+          "low": "Niska"
+        }
+      },
+      "alarm_mode": {
+        "name": "Monitoring",
+        "state": {
+          "off": "Wyłączony",
+          "all_day": "Cały dzień",
+          "schedule": "Harmonogram"
+        }
+      },
+      "preset": {
+        "name": "Preset PTZ",
+        "state": {
+          "none": "Brak",
+          "1": "Preset 1",
+          "2": "Preset 2",
+          "3": "Preset 3",
+          "4": "Preset 4",
+          "5": "Preset 5",
+          "6": "Preset 6"
+        }
+      }
+    },
+    "number": {
+      "alarm_interval": {
+        "name": "Odstęp alarmów ruchu"
+      }
+    },
+    "time": {
+      "alarm_start": {
+        "name": "Monitoring od"
+      },
+      "alarm_end": {
+        "name": "Monitoring do"
+      }
+    },
+    "button": {
+      "pan_left": {
+        "name": "Obrót w lewo"
+      },
+      "pan_right": {
+        "name": "Obrót w prawo"
+      },
+      "alarm": {
+        "name": "Syrena"
+      },
+      "restart": {
+        "name": "Uruchom ponownie"
+      },
+      "smb_test": {
+        "name": "Sprawdź połączenie SMB"
+      },
+      "save_preset": {
+        "name": "Zapisz pozycję jako preset"
+      }
+    }
+  }
+}

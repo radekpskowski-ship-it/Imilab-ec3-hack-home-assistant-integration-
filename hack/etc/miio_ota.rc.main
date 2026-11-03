@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+exec 2>&1
+. ../.common/rc.main
+## start target:
+start() {
+	# hack: OTA blocked unless /mnt/data/hack/allow_ota exists (original: rc.main.orig)
+	if [ ! -f /mnt/data/hack/allow_ota ]; then
+		echo "miio_ota blocked (hack)"
+		exec sleep 2147483647
+	fi
+	echo "start miio_ota"
+	exec miio_ota -p /mnt/data/bin/pre-ota.sh -P /mnt/data/bin/post-ota.sh
+}
+
+eval ${TARGET} "$@"

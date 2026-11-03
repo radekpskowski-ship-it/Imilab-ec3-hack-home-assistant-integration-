@@ -1,0 +1,11 @@
+out/
+.cache/
+__pycache__/
+*.pyc
+# real secrets — only the *.example files are tracked
+hack/etc/wifi.conf
+hack/etc/mqtt.conf
+hack/etc/shadow
+hack/root/.ssh/authorized_keys
+backup/
+*.bin
