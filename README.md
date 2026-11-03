@@ -33,7 +33,7 @@ Local control and video for the **Imilab EC3** outdoor camera (CMSXJ25A, miio `c
 - **No AI detection** (person/pet/crying) — the stock firmware 4.0.4 only has pixel motion detection.
 - **NAS upload needs SMB1** (`server min protocol = NT1`) — the camera cannot talk SMB2/3.
 - H.265 playback depends on the client: Safari, the HA Android app and Chrome/Edge with hardware HEVC work, Firefox does not — use the H.264 sub stream there.
-- The main stream needs a decent Wi-Fi signal (roughly −70 dBm or better); with a weak signal use the sub stream.
+- The main stream needs a decent Wi-Fi signal: on the tested unit it ran smoothly at −47…−55 dBm, but dropped to ~4 fps at −84…−89 dBm. With a weak signal use the sub stream.
 - Motion tracking is volatile — it is off again after a camera reboot (re-enable it with an automation).
 - MIoT (`get_properties`) does not answer locally — the integration uses the legacy miio commands.
 - The camera has ~10 MB of free RAM, so add-ons must stay small.
